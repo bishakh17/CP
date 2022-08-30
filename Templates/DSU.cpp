@@ -11,7 +11,7 @@ private:
 //  number of different groups that exists
     int count;
 
-//  size of the set
+//  size of the set vector
     int size;
 public:
     dsu(int n,bool t = false){
@@ -59,7 +59,7 @@ public:
     }
 
 //  returns the size of the group the element is in
-    int size(int i){
+    int groupSize(int i){
         int rooti = find(i);
         if(rooti==-1) return 0;
         else return -set[rooti]; 
