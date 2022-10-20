@@ -7,8 +7,8 @@ using namespace std;
 void solve(){
     int n;
     cin>>n;
-    vector<int> nums(n);
-    ll sum = 0;
+    vector<ll> nums(n);
+ll sum = 0;
     for(int i = 0; i<n; i++){
         cin>>nums[i];
         sum+=nums[i];
@@ -17,9 +17,9 @@ void solve(){
         cout<<0<<endl;
         return;
     }
-    int k = 0;
-    int temp = 0;
-    int ans = 0;
+    ll k = 0;
+    ll temp = 0;
+    ll ans = 0;
     for(int i = 0; i<n; i++){
         temp+=nums[i];
         if(temp==sum/3)k++;
