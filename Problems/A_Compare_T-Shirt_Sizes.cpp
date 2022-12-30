@@ -17,7 +17,7 @@ void solve(){
     else if(a[la-1]=='S') cout<<"<"<<endl;
     else if(a[la-1]=='L') cout<<">"<<endl;
     else if(b[lb-1]=='S') cout<<">"<<endl;
-    else if(a[la-1]=='L') cout<<"<"<<endl;
+    else if(b[lb-1]=='L') cout<<"<"<<endl;
     return;
 }
 
