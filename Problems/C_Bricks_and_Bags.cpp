@@ -12,22 +12,23 @@ int T = 1;
 
 void solve(){
     int n; cin>>n;
-    int ans = 0;
     vector<int> nums(n);
-    int odd = 0;
     for(int i = 0; i<n; i++){
         cin>>nums[i];
-        if(nums[i]%2) odd++;
     }
-    int t = (odd==1);
-    for(int i = 0; i<n; i++){
-        if(nums[i]%2==t) {cout(i+1); return;}
-    }
+    sort(nums.begin(),nums.end());
+    int min2 = upper_bound(nums.begin(),nums.end(),nums[0])-nums.begin();
+    int max2 = lower_bound(nums.begin(),nums.end(),nums[n-1])-nums.begin();
+    min2--;
+    if(min2<n-1) min2++;
+    if(max2>0) max2--;
+    cout(nums[n-1]-nums[0]+max(nums[n-1]-nums[max2],nums[min2]-nums[0]));
+
 }
 
 int32_t main(){
     fastio;
-    // cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }

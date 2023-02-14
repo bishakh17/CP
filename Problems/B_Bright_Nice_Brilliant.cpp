@@ -12,22 +12,18 @@ int T = 1;
 
 void solve(){
     int n; cin>>n;
-    int ans = 0;
-    vector<int> nums(n);
-    int odd = 0;
-    for(int i = 0; i<n; i++){
-        cin>>nums[i];
-        if(nums[i]%2) odd++;
-    }
-    int t = (odd==1);
-    for(int i = 0; i<n; i++){
-        if(nums[i]%2==t) {cout(i+1); return;}
+    for(int i = 1; i<=n; i++){
+        for(int j = 1; j<=i; j++){
+            if(j==1 or j==i) cout<<1<<" ";
+            else cout<<0<<" ";
+        }
+        cout<<endl;
     }
 }
 
 int32_t main(){
     fastio;
-    // cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
