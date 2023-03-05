@@ -8,19 +8,6 @@ using namespace std;
 #define cout(x) cout<<(x)<<endl
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
-int ndigits(int n){
-    int ans = 0;
-    while(n!=0){
-        ans+=n%10;
-        n/=10;
-    }
-    return ans;
-}
-void update(int l, int r, vector<int>& a){
-    for(int i = l; i<=r; i++){
-        a[i] = ndigits(a[i]);
-    }
-}
 
 void solve(){
     int n,q; cin>>n>>q;
@@ -33,7 +20,16 @@ void solve(){
         if(x==1){
             int l,r; cin>>l>>r;
             l--; r--;
-            update(l,r,a);
+            for(int i = l; i<=r; i++){
+                if(a[i]<10) continue;
+                int n = a[i];
+                int ans = 0;
+                while(n!=0){
+                    ans+=n%10;
+                    n/=10;
+                }
+                a[i] = ans;
+            }
         }
         else{
             int k; cin>>k;

@@ -1,5 +1,5 @@
 #include <iostream>
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 
@@ -12,7 +12,7 @@ int T = 1;
 
 void solve(){
     int n, m, d; cin>>n>>m>>d;
-    vector<int> p(n);
+    vector<int> p(n+1);
     for(int i = 1; i<n+1; i++){
         int x; cin>>x;
         p[x] = i;
@@ -25,7 +25,7 @@ void solve(){
         int y = p[a[i+1]];
         if(x<y and y<=x+d){
             int temp = y-x;
-            if(x+d<n or x>1) temp = min(temp, x+d-y+1);
+            if(d<n-1) temp = min(temp, x+d-y+1);
             ans = min(ans, temp);
         }
         else ans = 0;
