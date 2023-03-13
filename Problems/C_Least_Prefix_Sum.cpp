@@ -28,11 +28,21 @@ void solve(){
             ans++;
         }
     }
+    vector<int> prefix_sum(m+1,0);
+    for(int i = 1; i<=m; i++){
+        prefix_sum[i] = prefix_sum[i-1]+nums[i-1];
+    }
+    priority_queue<int> q2;
     for(int i = m-1; i>=0; i--){
-        
+        while(prefix_sum[i+1]<prefix_sum[m]){
+            prefix_sum[m]-=2*q2.top();
+            q2.pop();
+            ans++;
+        }
+        if(nums[i]>0) q2.push(nums[i]);
     }
     cout(ans);
-    return;
+    
 }
 
 int32_t main(){
