@@ -10,28 +10,23 @@ void solve(){
     for(int i = 0; i<n; i++){
         cin>>nums[i];
     }
-    int t;
-    if(n%2) t = n/2+1;
-    else t = n/2;
-    sort(nums.begin(),nums.end(),greater<int>());
-    int k = t;
-    while(t){
-        int i = 0;
-        int j = n-1;
-        while(i<=j and t){
-            while(nums[i]>t and i<j){
-                i++;
-            }
-            if(nums[i]>t) break;
-            i++;
-            j--;
-            t--;
+    int t = n/2;
+    sort(nums.begin(),nums.end());
+    int ans = 0;
+    for(int k = n/2+1; k>=0; k--){
+        int start = 0;
+        int end = n;
+        int stage = k;
+        while(stage>=1){
+            int index = upper_bound(nums.begin()+start,nums.begin()+end,stage) - nums.begin();
+            if(index == start) break;
+            start++;
+            end = index-1; 
+            stage--;
         }
-        if(!t) break;
-        k--;
-        t = k;
+        if(stage==0){ans = k; break;}
     }
-    cout<<k<<endl;
+    cout<<ans<<endl;
 }
 
 int main(){
