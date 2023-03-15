@@ -11,22 +11,21 @@ int T = 1;
 
 
 void solve(){
-    int n,m; cin>>n>>m;
-    vector<int> nums(n+1,n+1);
+    int n,m,k; cin>>n>>m>>k;
+    vector<int> a(m);
+    for(int i=0; i<m; i++){
+        cin>>a[i];
+    }
+    int seg = n/k;
+    if(n%k) seg++;
+    int extra = n%k;
+    int count = 0;
     for(int i = 0; i<m; i++){
-        int x,y;
-        cin>>x>>y;
-        int a = min(x,y);
-        int b = x+y-a;
-        nums[a] = min(nums[a],b);
+        if(a[i]>seg){cout("NO"); return;}
+        if(a[i]==seg and extra!=0) count++;
     }
-    int ans = 0;
-    int r = n+1;
-    for(int i = n; i>0; i--){
-        r = min(r,nums[i]);
-        ans+=r-i;
-    }
-    cout(ans);
+    if(count>extra){cout("NO"); return;}
+    cout("YES");
 }
 
 int32_t main(){
