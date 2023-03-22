@@ -10,19 +10,21 @@ using namespace std;
 int T = 1;
 
 
+
 void solve(){
     int n; cin>>n;
     vector<int> a(n);
-    for(int i = 0; i<n; i++) cin>>a[i];
-    sort(a.begin(),a.end());
-    int ans = a[n-1]-a[0];
-    for(int i = 1; i<=n-2; i++){
-        ans = max(ans,a[n-1]+a[i]-2*a[i-1]);
+    for(int i=0; i<n; i++) cin>>a[i];
+    vector<int> store(n+1,0);
+    store[n] = 1;
+    for(int i = n-1; i>=0; i--){
+        if(i+a[i]+1<=n) store[i] |= store[i+a[i]+1];
+        if(i+1<=n and i-a[i]>=0) store[i-a[i]] |= store[i+1];
     }
-    for(int i = n-2; i>=1; i--){
-        ans = max(ans,2*a[i+1]-a[0]-a[i]);
-    }
-    cout(ans);
+
+
+    if(store[0]) cout("YES");
+    else cout("NO");
 }
 
 int32_t main(){

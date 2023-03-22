@@ -13,16 +13,17 @@ int T = 1;
 void solve(){
     int n; cin>>n;
     vector<int> a(n);
-    for(int i = 0; i<n; i++) cin>>a[i];
-    sort(a.begin(),a.end());
-    int ans = a[n-1]-a[0];
-    for(int i = 1; i<=n-2; i++){
-        ans = max(ans,a[n-1]+a[i]-2*a[i-1]);
+    int count0 = 0;
+    int count1 = 0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        if(a[i]==0) count0++;
+        if(a[i]==1) count1++;
     }
-    for(int i = n-2; i>=1; i--){
-        ans = max(ans,2*a[i+1]-a[0]-a[i]);
-    }
-    cout(ans);
+    if(2*count0 - n <= 1) cout(0);
+    else if(count1==0 or count1+count0<n) cout(1);
+    else cout(2);
+    
 }
 
 int32_t main(){

@@ -11,18 +11,14 @@ int T = 1;
 
 
 void solve(){
-    int n; cin>>n;
-    vector<int> a(n);
-    for(int i = 0; i<n; i++) cin>>a[i];
-    sort(a.begin(),a.end());
-    int ans = a[n-1]-a[0];
-    for(int i = 1; i<=n-2; i++){
-        ans = max(ans,a[n-1]+a[i]-2*a[i-1]);
+    int a,b,c,d; cin>>a>>b>>c>>d;
+    if(b>d) cout(-1);
+    else{
+        int temp = d-b;
+        a+=temp;
+        if(a<c) cout(-1);
+        else cout(temp + a-c);
     }
-    for(int i = n-2; i>=1; i--){
-        ans = max(ans,2*a[i+1]-a[0]-a[i]);
-    }
-    cout(ans);
 }
 
 int32_t main(){
