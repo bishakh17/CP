@@ -4,6 +4,7 @@ using namespace std;
 //detects prims<=n
 #define n 1e6
 
+//1 if prime, else smallest prime factor
 vector<int> prime(n+1,1);
 void sieve(){
     prime[0] = 0;
