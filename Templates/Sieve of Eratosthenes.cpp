@@ -4,17 +4,15 @@ using namespace std;
 //detects prims<=n
 #define n 1e6
 
-//populates only odd numbers for efficiency
-vector<bool> prime(n+1,true);
+vector<int> prime(n+1,1);
 void sieve(){
-    prime[0] = false;
-    prime[1] = false;
-    for (int i = 3; i*i <= n; i += 2) {
-        if (prime[i]) {
-            for (int j = i * i; j <= n; j += i)
-            prime[j] = false;
+    prime[0] = 0;
+    prime[1] = 0;
+    for(int i = 2; i*i<=n; i++){
+        if(prime[i]==1){
+            for(int j = i*i; j<=n; j+=i){
+                if(prime[j]==1) prime[j] = i;
+            }
         }
     }
 }
-
-//check even numbers manually
