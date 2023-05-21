@@ -45,10 +45,12 @@ void precompute(){
 }
 
 int nCr(int n, int r){
+    if(r>n) return 0;
     return modDiv(factorial[n],modMul(factorial[r],factorial[n-r]));
 }
 
 int nPr(int n, int r){
+    if(r>n) return 0;
     return modDiv(factorial[n],factorial[n-r]);
 }
 
