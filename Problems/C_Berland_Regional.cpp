@@ -12,33 +12,48 @@ int T = 1;
 
 void solve(){
     int n; cin>>n;
-    vector<pair<int,int>> a(n);
-    for(int i=0;i<n;i++) cin>>a[i].first;
-    for(int i=0;i<n;i++) cin>>a[i].second;
-    sort(a.begin(),a.end());
-    vector<int> sm(n);
-    sm[0] = a[0].second;
-    for(int i=1;i<n;i++) sm[i] = sm[i-1] + a[i].second;
-    list<int> uni;
-    int count = 1;
-    for(int i = 1; i<n; i++){
-        if(a[i].first == a[i-1].first) count++;
-        else{
-            uni.push_back(count);
-            count = 1;
+    vector<int> a(n);
+    vector<int> b(n);
+    int sm = 0;
+    vector<vector<int>> v(n+1);
+    unordered_set<int> s;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        s.insert(a[i]);
+    }
+    for(int i=0;i<n;i++){
+        cin>>b[i];
+        sm+=b[i];
+    }
+    for(int i = 0; i<n; i++){
+        v[a[i]].emplace_back(b[i]);
+    }
+    for(int i = 1; i<=n; i++){
+        if(v[i].size()!=0) sort(v[i].begin(),v[i].end());
+    }
+    vector<vector<int>> sm_v(n+1);
+    for(int i = 1; i<=n; i++){
+        int sz = v[i].size();
+        sm_v[i].emplace_back(0);
+        for(int j = 0; j<sz; j++){
+            sm_v[i].emplace_back(sm_v[i][j]+v[i][j]);
         }
     }
-    uni.push_back(count);
-    for(int k = 1; k<=n; k++){
-        if(k==1){cout<<sm[n-1]<<' '; continue;}
-        int i = -1;
-        int ans = sm[n-1];
-        auto it = uni.begin();
-        while(it!=uni.end()){
-            if()
-            if(*it%k==0){it++; i+= *it; continue;}
-            ans 
+    for(int i = 1; i<=n; i++){
+        int cnt = 0;
+        unordered_set<int> del;
+        for(auto x : s){
+            int sz = v[x].size();
+            if(sz<i){
+                sm-=sm_v[x][sz];
+                del.insert(x);
+                continue;
+            }
+            int temp = sz%i;
+            cnt+=sm_v[x][temp];
         }
+        for(auto x : del) s.erase(x);
+        cout<<sm-cnt<<" ";
     }
     cout<<endl;
 
