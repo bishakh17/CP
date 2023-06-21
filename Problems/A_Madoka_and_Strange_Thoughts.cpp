@@ -11,21 +11,12 @@ int T = 1;
 
 
 void solve(){
-    int n; cin>>n; 
-    vector<int> a(n);
-    for(int i=0; i<n; i++) cin>>a[i];
-    sort(a.begin(), a.end());
-    int lie = 0;
-    for(int i = 0; i<n; i++){
-        int temp1 = n-i-1;
-        if(temp1+1==a[i]){
-            cout(-1);
-            return;
-        }
-        if(temp1<a[i]) lie++;
-    }
-    cout(lie);
-
+    int n; cin>>n;
+    int gg1 = n;
+    int gg2 = n/2;
+    int gg3 = n/3;
+    int ans = gg1 + 2*gg2 + 2*gg3;
+    cout(ans);
 }
 
 int32_t main(){

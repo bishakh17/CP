@@ -11,21 +11,17 @@ int T = 1;
 
 
 void solve(){
-    int n; cin>>n; 
-    vector<int> a(n);
-    for(int i=0; i<n; i++) cin>>a[i];
-    sort(a.begin(), a.end());
-    int lie = 0;
-    for(int i = 0; i<n; i++){
-        int temp1 = n-i-1;
-        if(temp1+1==a[i]){
-            cout(-1);
-            return;
+    int n,k,r,c; cin>>n>>k>>r>>c;
+    for(int i = 1; i<=n; i++){
+        for(int j = 1; j<=n; j++){
+            int x1 = i-r;
+            int y1 = j-c;
+            int gg = x1-y1;
+            if(gg%k==0) cout<<"X";
+            else cout<<".";
         }
-        if(temp1<a[i]) lie++;
-    }
-    cout(lie);
-
+        cout<<endl;
+    } 
 }
 
 int32_t main(){

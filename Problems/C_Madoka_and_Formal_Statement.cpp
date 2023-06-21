@@ -11,21 +11,24 @@ int T = 1;
 
 
 void solve(){
-    int n; cin>>n; 
+    int n; cin>>n;
     vector<int> a(n);
-    for(int i=0; i<n; i++) cin>>a[i];
-    sort(a.begin(), a.end());
-    int lie = 0;
+    vector<int> b(n);
+    for(int i = 0; i<n; i++) cin>>a[i];
+    for(int i = 0; i<n; i++) cin>>b[i];
     for(int i = 0; i<n; i++){
-        int temp1 = n-i-1;
-        if(temp1+1==a[i]){
-            cout(-1);
+        if(a[i]==b[i]) continue;
+        if(a[i]>b[i]){
+            cout("NO");
             return;
         }
-        if(temp1<a[i]) lie++;
+        int j = (i+1)%n;
+        if(b[i]>b[j]+1){
+            cout("NO");
+            return;
+        }
     }
-    cout(lie);
-
+    cout("YES");
 }
 
 int32_t main(){
