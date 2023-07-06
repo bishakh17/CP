@@ -13,28 +13,16 @@ int T = 1;
 void solve(){
     int n; cin>>n;
     vector<int> a(n);
-    int xr = 0;
-    for(int i=0; i<n; i++){
-        cin>>a[i];
-        xr ^= a[i];
+    for(int i=0;i<n;i++) cin>>a[i];
+    sort(a.begin(),a.end());
+    int maxi = a[n-1];
+    int sum = 0;
+    for(int i = 0; i<n-1; i++){
+        sum+=a[i];
     }
-    if(xr == 0){
-        cout("YES");
-        return;
-    }
-    int xr2 = 0;
-    int t = 0;
-    for(int i=0; i<n-1; i++){
-        xr2 ^= a[i];
-        if(!t and xr2 == xr) t = 1;
-        if(t and xr2 == 0){
-            cout("YES");
-            return;
-        }
-    }
-    cout("NO");
-     
-
+    double ans = (double)sum/(n-1);
+    ans+=maxi;
+    cout<<fixed<<setprecision(9)<<ans<<endl;
 }
 
 int32_t main(){

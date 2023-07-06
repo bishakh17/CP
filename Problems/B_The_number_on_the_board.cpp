@@ -11,35 +11,29 @@ int T = 1;
 
 
 void solve(){
-    int n; cin>>n;
-    vector<int> a(n);
-    int xr = 0;
+    int k; cin>>k;
+    string s; cin>>s;
+    int sum = 0;
+    int n = s.size();
     for(int i=0; i<n; i++){
-        cin>>a[i];
-        xr ^= a[i];
+        sum += s[i]-'0';
     }
-    if(xr == 0){
-        cout("YES");
+    if(sum >= k){
+        cout(0);
         return;
     }
-    int xr2 = 0;
-    int t = 0;
-    for(int i=0; i<n-1; i++){
-        xr2 ^= a[i];
-        if(!t and xr2 == xr) t = 1;
-        if(t and xr2 == 0){
-            cout("YES");
-            return;
-        }
+    sort(s.begin(), s.end());
+    int i = 0;
+    while(sum < k){
+        sum += 9 - (s[i] - '0');
+        i++;
     }
-    cout("NO");
-     
-
+    cout(i);
 }
 
 int32_t main(){
     fastio;
-    cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }

@@ -13,27 +13,21 @@ int T = 1;
 void solve(){
     int n; cin>>n;
     vector<int> a(n);
-    int xr = 0;
-    for(int i=0; i<n; i++){
-        cin>>a[i];
-        xr ^= a[i];
-    }
-    if(xr == 0){
-        cout("YES");
-        return;
-    }
-    int xr2 = 0;
-    int t = 0;
-    for(int i=0; i<n-1; i++){
-        xr2 ^= a[i];
-        if(!t and xr2 == xr) t = 1;
-        if(t and xr2 == 0){
-            cout("YES");
-            return;
+    for(int i=0;i<n;i++) cin>>a[i];
+    vector<int> temp(n,0);
+    int ans = 0;
+    for(int i = 0; i<n; i++){
+        int gg = a[i]-1;
+        for(int j = i+2; j<=min(n-1,i+a[i]); j++){
+            temp[j]++;
         }
+        if(temp[i]<=gg){
+            ans+=gg-temp[i];
+            continue;
+        }
+        if(i!=n-1)temp[i+1]+=temp[i]-gg;
     }
-    cout("NO");
-     
+    cout(ans);
 
 }
 

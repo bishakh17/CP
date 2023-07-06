@@ -12,34 +12,25 @@ int T = 1;
 
 void solve(){
     int n; cin>>n;
-    vector<int> a(n);
-    int xr = 0;
+    vector<pair<int,int>> a(n);
     for(int i=0; i<n; i++){
-        cin>>a[i];
-        xr ^= a[i];
+        cin>>a[i].second>>a[i].first;
     }
-    if(xr == 0){
-        cout("YES");
-        return;
-    }
-    int xr2 = 0;
-    int t = 0;
-    for(int i=0; i<n-1; i++){
-        xr2 ^= a[i];
-        if(!t and xr2 == xr) t = 1;
-        if(t and xr2 == 0){
-            cout("YES");
-            return;
+    int high = -1;
+    sort(a.begin(), a.end());
+    int ans = 0;
+    for(int i = 0; i<n; i++){
+        if(a[i].second>high){
+            ans++;
+            high = a[i].first;
         }
     }
-    cout("NO");
-     
-
+    cout(ans);
 }
 
 int32_t main(){
     fastio;
-    cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }

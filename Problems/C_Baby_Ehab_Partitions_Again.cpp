@@ -13,33 +13,30 @@ int T = 1;
 void solve(){
     int n; cin>>n;
     vector<int> a(n);
-    int xr = 0;
-    for(int i=0; i<n; i++){
+    int t = -1;
+    int sum = 0;
+    for(int i=0;i<n;i++){
         cin>>a[i];
-        xr ^= a[i];
+        sum += a[i];
+        if(a[i]%2) t = i;
     }
-    if(xr == 0){
-        cout("YES");
+    if(sum%2){
+        cout(0);
         return;
     }
-    int xr2 = 0;
-    int t = 0;
-    for(int i=0; i<n-1; i++){
-        xr2 ^= a[i];
-        if(!t and xr2 == xr) t = 1;
-        if(t and xr2 == 0){
-            cout("YES");
-            return;
-        }
+    if(t!=-1){
+        cout(1);
+        cout(t+1);
+        return;
     }
-    cout("NO");
-     
+    
+
 
 }
 
 int32_t main(){
     fastio;
-    cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }
