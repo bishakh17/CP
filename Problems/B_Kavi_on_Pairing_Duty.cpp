@@ -8,23 +8,23 @@ using namespace std;
 #define cout(x) cout<<(x)<<endl
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
-
-
+int M = 998244353;
+int modAdd(int a, int b, int m=M){return ((a%m)+(b%m))%m;}
 void solve(){
     int n; cin>>n;
-    vector<int> a(n);
-    for(int i=0;i<n;i++) cin>>a[i];
-    for(int i = 0; i<n; i++){
-        int ans = 15;
-        for(int j = 0; j<=15; j++){
-            for(int k = 0; k<=15; k++){
-                int x = (a[i]+j)*pow(2,k);
-                if(x%32768==0) ans = min(ans,j+k);
-            }
+    vector<int> dp(n+1, 0);
+    dp[0] = 0;
+    for(int i = 1; i<=n; i++){
+        for(int j = i; j<=n; j+=i){
+            dp[j]++;
         }
-        cout<<ans<<" ";
     }
-    cout<<endl;
+    int sum = 0;
+    for(int i=1; i<=n; i++){
+        dp[i] = modAdd(sum,dp[i]);
+        sum = modAdd(sum, dp[i]);
+    }
+    cout<<dp[n]<<endl;
 }
 
 int32_t main(){
@@ -34,5 +34,4 @@ int32_t main(){
         solve();
     }
     return 0;
-
 }

@@ -12,19 +12,15 @@ int T = 1;
 
 void solve(){
     int n; cin>>n;
-    vector<int> a(n);
-    vector<int> b(n);
-    for(int i=0;i<n;i++) cin>>a[i];
-    for(int i=0;i<n;i++) cin>>b[i];
-    for(int i = 0; i<n; i++){
-        if(a[i]>b[i]) swap(a[i],b[i]);
+    if(n>0){
+        cout<<-n+1<<" "<<n<<endl;
+        return;
     }
-    int ans = 0;
-    for(int i = 1; i<n; i++){
-        ans+=abs(a[i]-a[i-1]);
-        ans+=abs(b[i]-b[i-1]);
+    if(n==0){
+        cout<<-1<<" "<<1<<endl;
+        return;
     }
-    cout(ans);
+    cout<<n-1<<" "<<-n<<endl;
 }
 
 int32_t main(){
