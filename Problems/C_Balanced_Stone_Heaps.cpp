@@ -20,41 +20,25 @@ void solve(){
     while(low<=high){
         int mid = (low+high)/2;
         int t = 1;
-        for(int i=2; i<n; i++){
-            int curr = (mid-a[i-2])/2;
-            if(mid<a[i-2]) curr = 0;
-            else if((mid-a[i-2])%2) curr++;
-            if(i==n-1){
-                curr = max(curr,(mid-a[i-1]));
+        for(int i = n-1; i>=2; i--){
+            int diff = b[i] - mid;
+            diff = min(diff,a[i]);
+            if(diff<0){
+                t = 0; break;
             }
-            if(3*curr>a[i]){
-                curr = (a[i])/3;
-                a[i-2]+=2*curr;
-                a[i]-=3*curr;
-                int curr2 = (mid-a[i-2]);
-                if(curr2<0) curr2 = 0;
-                if(a[i-1]<3*curr2 or i==2){
-                    t = 0;
-                    break;
-                }
-                a[i-2]+=curr2;
-                a[i-1]-=3*curr2;
-                a[i-1]+=curr;
-                continue;
+            else{
+                diff/=3;
+                b[i-1]+=diff;
+                b[i-2]+=2*diff;
             }
-            a[i]-=3*curr;
-            a[i-1]+=curr;
-            a[i-2]+=2*curr;
         }
-        if(a[n-1]<mid) t = 0;
-        a = b;
+        if(b[0]<mid or b[1]<mid) t = 0;
         if(t){
             ans = mid;
             low = mid+1;
         }
-        else{
-            high = mid-1;
-        }
+        else high = mid-1;
+        b = a;
     }
     cout<<ans<<endl;
 
