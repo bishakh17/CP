@@ -3,7 +3,7 @@
 using namespace std;
 vector<vector<int>> sparseTable;
 
-//change this function to change the operation to be performed on the range of elements.
+//change this function to change the operation(min,max,gcd,non-overlapable) to be performed on the range of elements.
 int func(int a, int b){
     return min(a,b);
 }
