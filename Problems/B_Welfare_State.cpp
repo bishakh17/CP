@@ -15,29 +15,49 @@ void solve(){
     vector<int> a(n);
     for(int i=0;i<n;i++) cin>>a[i];
     int q; cin>>q;
-    vector<int> b(q,0);
-    vector<int> one(n,-1);
+    vector<vector<int>> v(q);
     for(int i = 0; i<q; i++){
-        int gg; cin>>gg;
-        if(gg==1){
-            int p,x; cin>>p>>x;
-            a[p-1] = x;
-            one[p-1] = i;
+        int x; cin>>x;
+        v[i].push_back(x);
+        if(x==1){
+            int y,z; cin>>y>>z;
+            v[i].push_back(y);
+            v[i].push_back(z);
         }
         else{
-            int x; cin>>x;
-            b[i] = x;
+            int y; cin>>y;
+            v[i].push_back(y);
         }
     }
-    for(int i = q-2; i>=0; i--){
-        b[i] = max(b[i],b[i+1]);
+    vector<int> two(q,-1);
+    for(int i = q-1; i>=0; i--){
+        if(v[i][0]==2){
+            if(i<q-1) two[i] = max(two[i+1],v[i][1]);
+            else two[i] = v[i][1];
+        }
+        else{
+            if(i<q-1) two[i] = two[i+1];
+        }
     }
-    for(int i = 0; i<n; i++){
-        if(one[i]==-1) a[i] = max(a[i],b[0]);
-        else a[i] = max(a[i],b[one[i]]);
+    vector<int> one(n+1,-1);
+    for(int i = 0; i<q; i++){
+        if(v[i][0]==1){
+            one[v[i][1]] = i;
+        }
     }
-    for(int i = 0; i<n; i++) cout<<a[i]<<" ";
+    for(int i = 1; i<=n; i++){
+        if(one[i]!=-1){
+            int ans = v[one[i]][2];
+            ans = max(ans,two[one[i]]);
+            cout<<ans<<" ";
+        }
+        else{
+            int ans = max(two[0],a[i-1]);
+            cout<<ans<<" ";
+        }
+    }
     cout<<endl;
+
 }
 
 int32_t main(){

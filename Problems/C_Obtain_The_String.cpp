@@ -14,27 +14,45 @@ void solve(){
     string s,t; cin>>s>>t;
     int n = s.size();
     int m = t.size();
-    vector<vector<int>> mp(n,vector<int>(26,-1));
-    for(int i = n-1; i>=0; i--){
-        for(int j = 0; j<26; j++){
-            if(s[i]==(char)(j+'a')) mp[i][j] = i;
-            else if(i<n-1) mp[i][j] = mp[i+1][j];
-            else mp[i][j] = -1;
+    vector<vector<int>> temp(26,vector<int>(n,n));
+    for(int j = 0; j<26; j++){
+        for(int i = n-2; i>=0; i--){
+            if(s[i+1]-'a'==j){
+                temp[j][i] = i+1;
+            }
+            else{
+                temp[j][i] = temp[j][i+1];
+            }
         }
     }
+    int curr = -1;
     int ans = 1;
-    int pos = 0;
-    for(int i = 0; i<m; i++){
-        int c = t[i]-'a';
-        if(pos==n or mp[pos][c]==-1){
-            if(mp[0][c]==-1){
+    int i = 0;
+    while(i<m){
+        if(curr==-1){
+            if(s[0]==t[i]){
+                curr = 0;
+                i++;
+            }
+            else if(temp[t[i]-'a'][0]==n){
                 cout(-1);
                 return;
             }
-            ans++;
-            pos = 0;
+            else{
+                curr = temp[t[i]-'a'][0];
+                i++;
+            }
         }
-        pos = mp[pos][c]+1;
+        else{
+            if(temp[t[i]-'a'][curr]==n){
+                ans++;
+                curr = -1;
+            }
+            else{
+                curr = temp[t[i]-'a'][curr];
+                i++;
+            }
+        }
     }
     cout(ans);
 }
