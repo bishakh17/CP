@@ -25,28 +25,42 @@ void solve(){
             return;
         }
     }
-    unordered_map<int,int> mp;
+    map<int,int> mp;
     for(int i = 0; i<m; i++){
         mp[c[i]]++;
     }
     vector<int> prevGreater(n,-1);
     for(int i = 1; i<n; i++){
-        if(b[i-1]>=b[i]) prevGreater[i] = i-1;
-        else{
-            int j = i-1;
-            while(j!=-1 and b[j]<b[i]){
-                j = prevGreater[j];
-            }
-            if(j!=-1 and b[j]>=b[i])prevGreater[i] = j;
+        int j = i-1;
+        while(j!=-1 and b[j]<b[i]){
+            j = prevGreater[j];
         }
+        prevGreater[i] = j;
     }
+    vector<int> temp(n,0);
     for(int i = 0; i<n; i++){
         if(prevGreater[i]==-1 or b[prevGreater[i]]!=b[i]){
-            if(a[i]>b[i])mp[b[i]]--;
+            if(a[i]>b[i]){
+                mp[b[i]]--;
+                temp[i] = 1;
+            }
             if(mp[b[i]]<0){
                 cout<<"NO"<<endl;
                 return;
             }
+        }
+        else if(temp[prevGreater[i]]==0){
+            if(a[i]>b[i]){
+                mp[b[i]]--;
+                temp[i] = 1;
+            }
+            if(mp[b[i]]<0){
+                cout<<"NO"<<endl;
+                return;
+            }
+        }
+        else{
+            temp[i] = 1;
         }
     }
     cout<<"YES"<<endl;
