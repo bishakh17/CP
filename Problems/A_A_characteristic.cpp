@@ -12,6 +12,7 @@ int T = 1;
 
 void solve(){
     
+    
     int n,k; cin>>n>>k;
     for(int i = 0; i<=n; i++){
         int j = n-i;
