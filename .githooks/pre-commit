@@ -1,0 +1,46 @@
+#!/bin/sh
+# Auto-organize the CP repo before each commit:
+#   1. Move every stray .cpp file (outside Problems/ and Templates/) into Problems/
+#   2. Permanently delete compiled build artifacts (not recoverable)
+# Templates/ and .git/ are never touched.
+
+repo="$(git rev-parse --show-toplevel)" || exit 1
+cd "$repo" || exit 1
+
+mkdir -p Problems
+
+# --- 1. Move stray .cpp files into Problems/ ---
+find . -type f -name '*.cpp' \
+    ! -path './Problems/*' \
+    ! -path './Templates/*' \
+    ! -path './.githooks/*' \
+    ! -path './.git/*' | while IFS= read -r f; do
+    dest="Problems/$(basename "$f")"
+    if [ "$f" != "./$dest" ]; then
+        mv -f "$f" "$dest"
+        git rm --cached --ignore-unmatch "$f" >/dev/null 2>&1 || true
+    fi
+done
+
+# --- 2. Delete compiled build artifacts (permanent rm) ---
+# By extension: object files, linker output, raw binaries.
+find . -type f \( -name '*.out' -o -name '*.o' -o -name '*.bin' \) \
+    ! -path './.git/*' ! -path './.githooks/*' ! -path './Templates/*' -exec rm -f {} +
+
+# Debug symbol bundles.
+find . -type d -name '*.dSYM' \
+    ! -path './.git/*' ! -path './.githooks/*' ! -path './Templates/*' -exec rm -rf {} + 2>/dev/null
+
+# Extensionless Mach-O executables (e.g. the binary next to each .cpp).
+find . -type f ! -name '*.*' \
+    ! -path './.git/*' ! -path './.githooks/*' ! -path './Templates/*' | while IFS= read -r f; do
+    if file "$f" 2>/dev/null | grep -q 'Mach-O'; then
+        rm -f "$f"
+        git rm --cached --ignore-unmatch "$f" >/dev/null 2>&1 || true
+    fi
+done
+
+# Stage the reorganization so it is part of this commit.
+git add -A
+
+exit 0
