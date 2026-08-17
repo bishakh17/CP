@@ -18,21 +18,13 @@ int extgcd(int a, int b, int &x, int &y){
 
 void solve(){
     int n, s, k; cin >> n >> s >> k;
-    // Want smallest m >= 1 with m*K == -S (mod N)
-    int g = __gcd(k, n);
-    if(s % g != 0){ cout << -1 << endl; return; }
-
-    int nn = n / g;          // reduced modulus
-    int kk = k / g;          // coprime with nn
-    int rhs = ((-s) % n + n) % n / g;   // (-S mod N) divided by g
-
+    
     int x, y;
-    extgcd(kk, nn, x, y);    // kk*x + nn*y = 1
-    int inv = ((x % nn) + nn) % nn;
-
-    int m = ( (__int128)rhs * inv ) % nn;
-    if(m == 0) m = nn;       // need a positive number of moves
-    cout << m << endl;
+    int g = extgcd(k, n, x, y);
+    if(s % g != 0){ cout << -1 << endl; return; }
+    int inv = (x * (-s / g))%(n/g);
+    int ans = (inv + n/g) % (n/g);
+    cout << ans << endl;
 }
 
 int32_t main(){
