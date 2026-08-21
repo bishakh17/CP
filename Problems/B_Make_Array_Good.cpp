@@ -4,22 +4,22 @@ using namespace std;
 
 
 #define endl "\n"
-#define int long long
+#define int unsigned long long
 #define cout(x) cout<<(x)<<endl
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
 
 
 void solve(){
-    int n;
-    cin>>n;
+    int n; cin>>n;
+    vector<int> a(n);
+    for(int i=0;i<n;i++) cin>>a[i];
     cout(n);
-    for(int i = 1; i<=n; i++){
-        int x; cin>>x;
-        cout<<i<<" "<<(int)pow(2,ceil((double)log2(x)))-x<<endl;
+    for(int i=0;i<n;i++){
+        int x = 1<<bit_width(a[i]);
+        x = x - a[i];
+        cout<<i+1<<" "<<x<<endl;
     }
-    return;
-
 }
 
 int32_t main(){

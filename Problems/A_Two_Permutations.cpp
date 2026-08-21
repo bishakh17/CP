@@ -11,23 +11,16 @@ int T = 1;
 
 
 void solve(){
-    int n; cin>>n;
-    string s; cin>>s;
-    int t = 0;
-    int ans = 0;
-    for(int i = 0; i<n; i++){
-        if(t == 0 and s[i]=='0') {
-            continue;
-        }
-        if(t == 0 and s[i]=='1'){
-            t = 1;
-            continue;
-        }
-        if(i>0 and s[i]!=s[i-1]) {
-            ans ++;
-        }
+    int n,a,b; cin>>n>>a>>b;
+    if(n==a && n==b) {
+        cout<<"YES"<<endl;
+        return;
     }
-    cout<<ans<<endl;
+    if(n-a-b>=2) {
+        cout<<"YES"<<endl;
+    }else {
+        cout<<"NO"<<endl;
+    }
 }
 
 int32_t main(){

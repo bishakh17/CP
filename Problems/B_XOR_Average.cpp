@@ -12,12 +12,19 @@ int T = 1;
 
 void solve(){
     int n; cin>>n;
-    if(n==1){cout(2);return;}
-    if(!(n&1)) cout<<1<<" "<<3<<" ";
-    else cout<<2<<" "<<2<<" ";
-    for(int i = 0; i<n-2; i++) cout<<2<<" ";
-    cout<<endl;
-    return;
+    if(n==1) {
+        cout<<1<<endl;
+        return;
+    }
+    for(int i=1; i<=n-2; i++){
+        cout<<2<<" ";
+    }
+    if(n&1){
+        cout<<2<<" "<<2<<endl;
+    } else {
+        cout<<1<<" "<<3<<endl;
+    }
+
 }
 
 int32_t main(){

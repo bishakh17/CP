@@ -11,21 +11,13 @@ int T = 1;
 
 
 void solve(){
-    int n; cin>>n;
-    string s; cin>>s;
-    int t = 0;
-    int ans = 0;
+    int n,k; cin>>n>>k;
+    int prev = 0;
+    string ans = "YES";
     for(int i = 0; i<n; i++){
-        if(t == 0 and s[i]=='0') {
-            continue;
-        }
-        if(t == 0 and s[i]=='1'){
-            t = 1;
-            continue;
-        }
-        if(i>0 and s[i]!=s[i-1]) {
-            ans ++;
-        }
+        int x; cin>>x;
+        if(x<prev && k==1) ans = "NO";
+        prev = x;  
     }
     cout<<ans<<endl;
 }

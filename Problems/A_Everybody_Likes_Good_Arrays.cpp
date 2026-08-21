@@ -12,15 +12,14 @@ int T = 1;
 
 void solve(){
     int n; cin>>n;
-    vector<int> nums(n);
+    int prev = -1;
     int ans = 0;
     for(int i = 0; i<n; i++){
-        cin>>nums[i];
+        int x; cin>>x;
+        if((x&1) == prev) ans ++;
+        prev = x&1;
     }
-    for(int i = 1; i<n; i++){
-        if(nums[i]%2==nums[i-1]%2) ans++;
-    }
-    cout(ans);
+    cout << ans <<endl;
 }
 
 int32_t main(){

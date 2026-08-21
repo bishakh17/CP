@@ -9,17 +9,16 @@ using namespace std;
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
 
-
 void solve(){
     int n; cin>>n;
-    cout(n/2 + n%2);
-    int i = 1; int j = 3*n;
-    for(int t = 0; t<n/2+n%2; t++){
-        cout<<i<<" "<<j<<endl;
-        i+=3;
-        j-=3;
+    cout<<n/2 + (n&1)<<endl;
+    int i = 1; int j = n;
+    while(i<=j){
+        if(i==j) cout<<3*i-2<<" "<<3*i-1<<endl;
+        else cout<<3*i-2<<" "<<3*j-1<<endl;
+        i++; j--;
     }
-    return;
+    
 }
 
 int32_t main(){

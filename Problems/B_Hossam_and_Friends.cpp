@@ -12,21 +12,35 @@ int T = 1;
 
 void solve(){
     int n,m; cin>>n>>m;
-    vector<int> nums(n+1,n+1);
-    for(int i = 0; i<m; i++){
-        int x,y;
-        cin>>x>>y;
-        int a = min(x,y);
-        int b = x+y-a;
-        nums[a] = min(nums[a],b);
+    vector<int> temp(n+1,n+1);
+    for(int i=0; i<m; i++){
+        int a,b; cin>>a>>b;
+        if(a>b) swap(a,b);
+        temp[a] = min(temp[a],b);
     }
     int ans = 0;
-    int r = n+1;
-    for(int i = n; i>0; i--){
-        r = min(r,nums[i]);
-        ans+=r-i;
+    int j = -1;
+    int br = n+1;
+    int count = 0;
+    for(int i = 1; i<=n;){
+        if(i==br) {
+            int x = br-j-1;
+            ans -= (x*(x+1))/2;
+            count = 0;
+            br = n+1;
+            i = j+1;
+            j = -1;
+            continue;
+        }
+        if(temp[i]<=br) {
+            br = temp[i];
+            j = i;
+        }
+        count++;
+        ans += count;
+        i++;
     }
-    cout(ans);
+    cout<<ans<<endl;
 }
 
 int32_t main(){

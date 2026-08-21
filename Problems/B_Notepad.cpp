@@ -11,18 +11,23 @@ int T = 1;
 
 
 void solve(){
-    int n; cin>>n; string s; cin>>s;
-    unordered_map<string,int> store;
-    for(int i = 0; i<n-1; i++){
-        string t = s.substr(i, 2);
-        if(store.find(t)!=store.end() and store[t]!=i-1){
+    int n; cin>>n;
+    string s; cin>>s;
+    if(n<=3) {
+        cout("NO");
+        return;
+    }
+    vector<vector<int>> a(26,vector<int>(26,0));
+    for(int i = 1; i<n; i++) {
+        int x = s[i-1]-'a';
+        int y = s[i]-'a';
+        a[x][y]++;
+        if(a[x][y]>1 && (a[x][y]>2 || (s[i-2]!=s[i-1] || x!=y))) {
             cout("YES");
             return;
         }
-        if(store.find(t)==store.end())store[s.substr(i, 2)] = i;
     }
     cout("NO");
-    return;
 }
 
 int32_t main(){
