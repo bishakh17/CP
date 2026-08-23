@@ -9,33 +9,47 @@ using namespace std;
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
 
+vector<int> temp(2e5+1,0);
 
 void solve(){
     int n; cin>>n;
-    unordered_map<int,int> s;
-    vector<vector<int>> nums(n);
-    for(int i = 0; i<n; i++){
+    vector<vector<int>> a(n);
+
+    for(int i=0;i<n;i++){
         int k; cin>>k;
-        for(int j = 0; j<k; j++){
+        a[i].resize(k);
+        for(int j=0;j<k;j++){
             int x; cin>>x;
-            nums[i].push_back(x);
+            a[i][j] = x;
+            temp[x]++;
         }
     }
-    for(int i = 0; i<n; i++){
-        int k = nums[i].size();
-        for(int j = 0; j<k; j++){
-            s[nums[i][j]]++;
+    for(int i=0;i<n;i++){
+        int k = a[i].size();
+        int t = 0;
+        for(int j=0;j<k;j++){
+            int x = a[i][j];
+            if(temp[x]==1){
+                t = 1;
+                break;
+            }
+        }
+        if(t==0){
+            cout("YES");
+            for(int i = 0; i < n; i++){
+                for(int x : a[i]){
+                    temp[x] = 0;
+                }
+            }
+            return;
         }
     }
-    for(int i = 0; i<n; i++){
-        int k = nums[i].size();
-        int t = 1;
-        for(int j = 0; j<k; j++){
-            if(s[nums[i][j]]==1) t=0;
+    for(int i = 0; i < n; i++){
+        for(int x : a[i]){
+            temp[x] = 0;
         }
-        if(t) {cout("Yes"); return;}
     }
-    cout("No");
+    cout("NO");
 }
 
 int32_t main(){
