@@ -11,10 +11,15 @@ int T = 1;
 
 
 void solve(){
-    int x,y; cin>>x>>y;
-    cout(2*(x-y));
-    for(int i = y; i<x; i++) cout<<i<<" ";
-    for(int i = x; i>y; i--) cout<<i<<" ";
+    int x; int y; 
+    cin>>x>>y;
+    cout((x-y)*2);
+    for(int i = x; i >= y; i--) {
+        cout<<i<<" ";
+    }
+    for(int i = y+1; i < x; i++) {
+        cout<<i<<" ";
+    }
     cout<<endl;
 }
 

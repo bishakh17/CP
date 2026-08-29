@@ -9,41 +9,63 @@ using namespace std;
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
 
+vector<int> temp(1e6+1, 0);
 
 void solve(){
-    int n; cin>>n;
-    vector<int> a(2*n);
-    for(int i=0; i<2*n; i++) cin>>a[i];
+    int x; cin>>x;
+    int n = 2*x;
+    vector<int> a(n);
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
+        temp[a[i]]++;
+    }
     sort(a.begin(), a.end());
-    multiset<int> s;
-    multiset<int> s2;
-    for(int i=0; i<2*n; i++) s.insert(-a[i]);
-    s.erase(s.begin());
-    s2 = s;
-    for(int i = 0; i<2*n-1; i++){
-        vector<pair<int,int>> ans;
-        s = s2;
-        s.erase(s.find(-a[i]));
-        int prev = a[2*n-1];
-        ans.push_back({a[2*n-1], a[i]});
-        int tot = prev + a[i];
-        while(!s.empty()){
-            int x = -(*s.begin());
-            s.erase(s.begin());
-            if(s.find(x-prev) == s.end()) break;
-            s.erase(s.find(x-prev));
-            ans.push_back({x, prev-x});
-            prev = x;
+    vector<pair<int, int>> ans;
+    ans.reserve(x);
+
+    for(int i = 0; i<n-1; i++) {
+        ans.push_back({a[n-1], a[i]});
+        temp[a[n-1]]--;
+        temp[a[i]]--;
+        int curr = a[n-1];
+        int k = 1;
+        for(int j = n-1; j >= 0; j--) {
+            if(j==i || temp[a[j]]==0) continue;
+            temp[a[j]]--;
+            int t = curr - a[j];
+            int g = temp[t];
+            temp[a[j]]++;
+            if(g>0) {
+                ans.push_back({a[j], t});
+                temp[a[j]]--;
+                temp[t]--;
+                curr = a[j];
+            }
+            else {
+                k = 0;
+                while(!ans.empty()) {
+                    auto p = ans.back();
+                    ans.pop_back();
+                    temp[p.first]++;
+                    temp[p.second]++;
+                }
+                break;
+            }
         }
-        if(s.empty()){
-            cout<<"YES"<<endl;
-            cout<<tot<<endl;
-            for(auto x: ans) cout<<x.first<<" "<<x.second<<endl;
+        if(k) {
+            cout("YES");
+            cout(ans[0].first + ans[0].second);
+            for(auto p: ans) {
+                cout<<p.first<<" "<<p.second<<endl;
+            }
+            for(int i=0;i<n;i++) temp[a[i]] = 0;
             return;
         }
-        
     }
-    cout<<"NO"<<endl;
+
+    for(int i=0;i<n;i++) temp[a[i]] = 0;
+    cout("NO");
+    return;
 }
 
 int32_t main(){

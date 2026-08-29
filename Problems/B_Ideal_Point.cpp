@@ -8,25 +8,25 @@ using namespace std;
 #define cout(x) cout<<(x)<<endl
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
-int M = 1e9 + 7;
-int N = 1e5 + 1;
-vector<int> arr(N,1);
-void fact() {
-    for(int i=2;i<N;i++) {
-        arr[i] = (arr[i-1] * i) % M;
-    }
-}
 
 
 void solve(){
-    int n; cin>>n;
-    cout(((arr[n]*n)%M * (n-1))%M);
+    int n,k; 
+    cin>>n>>k;
+    int l = 0; int r = 0;
+    for(int i=0;i<n;i++) {
+        int x, y;
+        cin>>x>>y;
+        if(x==k) l = 1;
+        if(y==k) r = 1;
+    }
+    if(l && r) cout("YES");
+    else cout("NO");
 }
 
 int32_t main(){
     fastio;
     cin>>T;
-    fact();
     while(T--){
         solve();
     }

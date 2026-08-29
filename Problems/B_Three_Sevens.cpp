@@ -8,31 +8,45 @@ using namespace std;
 #define cout(x) cout<<(x)<<endl
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
+vector<int> temp(5e4+1,0);
 
+void clear (vector<vector<int>>& a) {
+    for(int i = 0; i < a.size(); i++) {
+        for(int j = 0; j < a[i].size(); j++) {
+            temp[a[i][j]] = 0;
+        }
+    }
+}
 
 void solve(){
     int m; cin>>m;
     vector<vector<int>> a(m);
-    for(int i = 0; i<m; i++){
-        int n; cin>>n;
-        for(int j = 0; j<n; j++){
-            int x; cin>>x;
-            a[i].push_back(x);
+    for(int i = 0; i < m; i++) {
+        int x; cin>>x;
+        a[i].resize(x);
+        for(int j = 0; j < x; j++) {
+            cin>>a[i][j];
         }
     }
-    vector<int> ans;
-    vector<int> mp(50001,0);
-    for(int i = m-1; i>=0; i--){
-        int n = a[i].size();
-        int t = 0;
-        for(int j = 0; j<n; j++){
-            if(mp[a[i][j]]==0 and !t){ans.push_back(a[i][j]); t = 1;}
-            mp[a[i][j]] = 1;
+    vector<int> ans(m);
+    for(int i = m-1; i >= 0; i--) {
+        for(int j = 0; j < a[i].size(); j++) {
+            if(temp[a[i][j]] == 0) {
+                ans[i] = a[i][j];
+            }
+            temp[a[i][j]] = 1;
         }
-        if(!t){cout(-1); return;}
+        if(ans[i] == 0) {
+            cout<<-1<<endl;
+            clear(a);
+            return;
+        }
     }
-    for(int i = ans.size()-1; i>=0; i--) cout<<ans[i]<<" ";
+    for(int i = 0; i < m; i++) {
+        cout<<ans[i]<<" ";
+    }
     cout<<endl;
+    clear(a);
 }
 
 int32_t main(){

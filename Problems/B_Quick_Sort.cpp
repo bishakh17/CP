@@ -11,17 +11,14 @@ int T = 1;
 
 
 void solve(){
-    int n,k; cin>>n>>k;
-    int j = 1;
-    int t = 0;
-    for(int i = 1; i<=n; i++){
+    int n, k; cin>>n>>k;
+    int count = 0;
+    for(int i=0;i<n;i++) {
         int x; cin>>x;
-        if(x==j){j++;t++;}
+        if(x == count + 1) count++;
     }
-    int ans = (n-t)/k;
-    if((n-t)%k)ans++;
-    cout(ans);
-    return;
+    cout<<(n-count)/k + ((n-count)%k != 0) <<endl;
+
 }
 
 int32_t main(){

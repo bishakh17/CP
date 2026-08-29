@@ -8,25 +8,29 @@ using namespace std;
 #define cout(x) cout<<(x)<<endl
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
-int M = 1e9 + 7;
-int N = 1e5 + 1;
-vector<int> arr(N,1);
-void fact() {
-    for(int i=2;i<N;i++) {
-        arr[i] = (arr[i-1] * i) % M;
-    }
-}
 
 
 void solve(){
     int n; cin>>n;
-    cout(((arr[n]*n)%M * (n-1))%M);
+    vector<int> a(n);
+    int sum = 0;
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
+        sum += a[i];
+    }
+    int curr = 0;
+    int ans = 1;
+    for(int i=0;i<n-1;i++) {
+        curr += a[i];
+        int t = __gcd(curr, sum - curr);
+        ans = max(ans, t);
+    }
+    cout<<ans<<endl;
 }
 
 int32_t main(){
     fastio;
     cin>>T;
-    fact();
     while(T--){
         solve();
     }
