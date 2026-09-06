@@ -11,18 +11,21 @@ int T = 1;
 
 
 void solve(){
-    int n; int m; cin>>n>>m;
-    vector<vector<int>> a(m,vector<int>(n));
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            cin>>a[j][i];
-        }
+    int n; cin>>n;
+    vector<int> a(n); 
+    for(int i=0;i<n;i++) cin>>a[i];
+    vector<int> s(n+1,0);
+    for(int i = n-1; i>=0; i--) {
+        s[i] = s[i+1] + a[i];
     }
-    int ans = 0;
-    for(int i = 0; i<m; i++) {
-        sort(a[i].begin(), a[i].end());
-        for(int j = 0; j<n; j++){
-            ans += (a[i][j] * (2*j + 1 - n));
+    int ans = a[0]; 
+    int curr = 1;
+    for(int i = 1; i<n; i++) {
+        if(-a[i]-s[i+1] > 0) {
+            ans += curr*a[i];
+        } else {
+            curr++;
+            ans += curr*a[i];
         }
     }
     cout(ans);

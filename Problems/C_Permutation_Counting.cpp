@@ -14,23 +14,24 @@ void solve(){
     int n,k; cin>>n>>k;
     vector<int> a(n);
     for(int i=0;i<n;i++) { cin>>a[i]; }
-    int last = -1;
-    int ans = 0;
-    for(int i = 0; i<n; i++){
-        if((i+1)%k == a[i]%k) continue;
-        if(last == -1) last = i+1;
-        else if(last!=0) {
-            if((a[i]%k == last%k) && ((i+1)%k == a[last-1]%k)) ans = 1;
-            else {
-                cout(-1);
-                return;
-            }
-        }
-        else {
-            cout(-1);
-            return;
+    sort(a.begin(), a.end());
+    int min = a[0];
+    int cnt = 1;
+    for(int i = 1; i<n; i++){
+        if(i*(a[i]-a[i-1])<=k) {
+            k -= i*(a[i]-a[i-1]);
+            cnt++;
+            min = a[i];
+        } else {
+            min += k/i;
+            cnt -= k%i;
+            k = 0;
+            break;
         }
     }
+    min += k/n;
+    cnt -= k%n;
+    int ans = min*n - (cnt - 1);
     cout(ans);
 }
 

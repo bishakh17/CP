@@ -9,20 +9,21 @@ using namespace std;
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
 
-
 void solve(){
-    int n; int m; cin>>n>>m;
-    vector<vector<int>> a(m,vector<int>(n));
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            cin>>a[j][i];
-        }
-    }
+    int n; cin>>n;
+    string s; cin>>s;
+    unordered_map<int,int> temp;
+    temp[1] = -1;
+    int sum = 0;
     int ans = 0;
-    for(int i = 0; i<m; i++) {
-        sort(a[i].begin(), a[i].end());
-        for(int j = 0; j<n; j++){
-            ans += (a[i][j] * (2*j + 1 - n));
+    for(int i=0;i<n;i++) {
+        int x = (s[i] == '1' ? 1 : 0);
+        sum += x;
+        int t = 2*sum - i;
+        if(temp.find(t) == temp.end()) {
+            temp[t] = i;
+        } else {
+            ans = max(ans, i - temp[t]);
         }
     }
     cout(ans);
@@ -30,7 +31,7 @@ void solve(){
 
 int32_t main(){
     fastio;
-    cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }

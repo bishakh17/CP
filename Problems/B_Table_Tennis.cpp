@@ -11,26 +11,31 @@ int T = 1;
 
 
 void solve(){
-    int n; int m; cin>>n>>m;
-    vector<vector<int>> a(m,vector<int>(n));
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            cin>>a[j][i];
+    int n,k; cin>>n>>k;
+    int ans = -1;
+    int maxi = -1;
+    int cnt = 0;
+    for(int i=0;i<=n;i++){
+        int x; cin>>x;
+        if(x<maxi) {
+            cnt++;
+        }
+        if(x>maxi) {
+            maxi = x;
+            cnt = 1;
+            if(i==0) cnt--;
+        }
+        if(cnt==k && ans==-1) {
+            ans = maxi;
         }
     }
-    int ans = 0;
-    for(int i = 0; i<m; i++) {
-        sort(a[i].begin(), a[i].end());
-        for(int j = 0; j<n; j++){
-            ans += (a[i][j] * (2*j + 1 - n));
-        }
-    }
+    if(ans==-1) ans = maxi;
     cout(ans);
 }
 
 int32_t main(){
     fastio;
-    cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }

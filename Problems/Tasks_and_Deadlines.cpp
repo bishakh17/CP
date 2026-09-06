@@ -11,26 +11,27 @@ int T = 1;
 
 
 void solve(){
-    int n; int m; cin>>n>>m;
-    vector<vector<int>> a(m,vector<int>(n));
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            cin>>a[j][i];
-        }
+    int n; cin>>n;
+    vector<pair<int,int>> a(n);
+    for(int i = 0; i < n; i++) {
+        cin>>a[i].first>>a[i].second;
     }
+    sort(a.begin(), a.end());
+    int sum = 0;
     int ans = 0;
-    for(int i = 0; i<m; i++) {
-        sort(a[i].begin(), a[i].end());
-        for(int j = 0; j<n; j++){
-            ans += (a[i][j] * (2*j + 1 - n));
-        }
+    int sum2 = 0;
+    for(int i = 0; i < n; i++) {
+        sum += a[i].first;
+        ans += sum;
+        sum2 += a[i].second;
     }
-    cout(ans);
+    ans = sum2 - ans;
+    cout<<ans<<endl;
 }
 
 int32_t main(){
     fastio;
-    cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }
