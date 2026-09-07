@@ -12,18 +12,19 @@ int T = 1;
 
 void solve(){
     int n; cin>>n;
-    vector<int> a(n);
-    for(int i=0;i<n;i++) cin>>a[i];
-    cout<<1<<" ";
-    int i = 0; int j = 1;
-    while(j<n){
-        while(i<j and j-i+1>a[i]){
-            i++;
-        }
-        cout<<j-i+1<<" ";
-        j++;
+    vector<int> a(n,-1);
+    for(int i = 0; i < n; i++) {
+        int x; cin>>x;
+        a[i] = i+x-1;
     }
-    cout<<endl;
+    for(int i = 0; i < n; i++) {
+        int ans = a.begin()+i+1 - lower_bound(a.begin(), a.begin()+i+1, i);
+        cout << ans << " ";
+    }
+
+    
+    cout << endl;
+    
 }
 
 int32_t main(){

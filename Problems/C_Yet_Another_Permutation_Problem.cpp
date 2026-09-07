@@ -12,22 +12,21 @@ int T = 1;
 
 void solve(){
     int n; cin>>n;
-    set<int> s;
-    vector<int> ans;
-    for(int i = 1; i<=n; i++) s.insert(i);
-    while(!s.empty()){
-        for(int i = 1; i<=n; i++){
-            int temp = i;
-            while(s.find(temp)!=s.end()){
-                ans.push_back(temp);
-                s.erase(temp);
-                temp*=2;
+    int i = 0;
+    while(i<=n) {
+        if(i==1) cout<<i<<" ";
+        else if((i==2)||(i&1)){
+            int j = i;
+            while(j<=n) {
+                cout<<j<<" ";
+                j*=2;
             }
         }
+        i++;
     }
-    for(auto i:ans) cout<<i<<" ";
     cout<<endl;
 }
+
 
 int32_t main(){
     fastio;
