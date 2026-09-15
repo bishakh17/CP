@@ -9,15 +9,21 @@ using namespace std;
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
 
+void print(int c, int i, int n){
+    cout<<c<<" "<<i<<" ";
+    for(int j = 1; j<=n; j++) cout<<j<<" ";
+    cout<<endl;
+}
+
 
 void solve(){
-    string s; cin>>s;
-    char last = '0';
-    for(int i = 0; i < s.size(); i++) {
-        if(s[i]!='?') last = s[i];
-        else s[i] = last;
+    int n; cin>>n;
+    cout<<((n*(n+1)*(2*n+1))/3 - (n*(n+1))/2)<<" "<<(2*n -1)<<endl;
+    print(1, n, n);
+    for(int i = n-1; i>=1; i--) {
+        print(2, i, n);
+        print(1, i, n);
     }
-    cout(s);
 }
 
 int32_t main(){

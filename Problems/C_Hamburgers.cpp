@@ -9,40 +9,37 @@ using namespace std;
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
 
-
+int check(vector<pair<pair<int,int>,int>> &temp, int mid, int r){
+    int cost = 0;
+    for(int i = 0; i<3; i++){
+        int need = temp[i].second*mid;
+        cost += max(0LL, (need-temp[i].first.first)*temp[i].first.second);
+    }
+    return cost<=r;
+}
 
 void solve(){
-    string t;
-    cin>>t;
-    int B = 0,S = 0,C = 0;
-    for(int i = 0; i<t.size(); i++){
-        if(t[i]=='B') B++;
-        if(t[i]=='S') S++;
-        if(t[i]=='C') C++;
+    string s; cin>>s;
+    vector<pair<pair<int,int>,int>> temp(3);
+    for(int i = 0; i<3; i++) cin>>temp[i].first.first;
+    for(int i = 0; i<3; i++) cin>>temp[i].first.second;
+    int r; cin>>r;
+    for(int i = 0; i<s.size(); i++){
+        if(s[i]=='B') temp[0].second++;
+        else if(s[i]=='S') temp[1].second++;
+        else temp[2].second++;
     }
-    int b,s,c;
-    cin>>b>>s>>c;
-    int pb,ps,pc;
-    cin>>pb>>ps>>pc;
-    int p;
-    cin>>p;
-
-    int ans = 0;
-    int l = 0;
-    int r = 1e13;
-    while(l<=r){
-        int m = l+(r-l)/2;
-        int x = max(0ll,(B*m-b)*pb) + max(0ll,(S*m-s)*ps) + max(0ll,(C*m-c)*pc);
-        if(x<=p){
-            ans = max(ans,m);
-            l = m+1;
-        }
-        else{
-            r = m-1;
-        }
+    int l = 0, h = 1e13, ans = -1;
+    while(l<=h) {
+        int mid = l + (h-l)/2;
+        int cost = 0;
+        if(check(temp,mid,r)){
+            ans = mid;
+            l = mid+1;
+        } else h = mid-1;
     }
     cout(ans);
-    return;
+
 }
 
 int32_t main(){
