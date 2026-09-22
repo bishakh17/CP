@@ -8,26 +8,21 @@ using namespace std;
 #define cout(x) cout<<(x)<<endl
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 int T = 1;
+int M = 998244353;
 
 
 void solve(){
     int l,r; cin>>l>>r;
-    int m = log2(r/l);
-    int k1 = 0;
-    int f1 = pow(2,m);
-    k1 = r-f1*l;
-    k1 = k1/f1;
-    int k2 = -1;
-    int f2 = f1*3/2;
-    if(l*f2<=r){
-        k2 = r-l*f2;
-        k2 = k2/f2;
+    int ans = log2(r/l) + 1;
+    int count = max(0ll, r/(1ll<<(ans-1)) - l + 1);
+    count = count%M;
+    if (ans > 1) {
+        int count1 = max(0LL, r / (3LL * (1LL << (ans - 2))) - l + 1);
+        count = (count + (ans - 1) * count1) % M;
     }
-    k1++;
-    k2++;
-    int ans = k1+m*k2;
 
-    cout<<m+1<<" "<<ans<<endl;
+    cout<<ans<<" "<<count<<endl;
+
 }
 
 int32_t main(){

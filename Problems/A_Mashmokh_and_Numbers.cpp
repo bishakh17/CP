@@ -11,24 +11,26 @@ int T = 1;
 
 
 void solve(){
-    int n,m; cin>>n>>m;
-    for(int i = 2; i<=n; i+=2) {
-        for(int j = 1; j<=m; j++) {
-            cout<<m*(i-1)+j<<" ";
-        }
-        cout<<endl;
+    int n,k; cin>>n>>k;
+    if(k<n/2 || (n==1 && k!=0)) {
+        cout(-1);
+        return;
     }
-    for(int i = 1; i<=n; i+=2) {
-        for(int j = 1; j<=m; j++) {
-            cout<<m*(i-1)+j<<" ";
-        }
-        cout<<endl;
+    if(n==1 && k==0){
+        cout(1);
+        return;
     }
+    int gg = k - n/2 + 1;
+    cout<<gg<<" "<<gg*2<<" ";
+    for(int i = 3; i <= n; i++){
+        cout<<gg*2+(i-2)<<" ";
+    }
+    cout<<endl;
 }
 
 int32_t main(){
     fastio;
-    cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }

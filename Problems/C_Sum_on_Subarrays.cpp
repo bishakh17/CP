@@ -11,19 +11,20 @@ int T = 1;
 
 
 void solve(){
-    int n,m; cin>>n>>m;
-    for(int i = 2; i<=n; i+=2) {
-        for(int j = 1; j<=m; j++) {
-            cout<<m*(i-1)+j<<" ";
-        }
-        cout<<endl;
+    int n, k; cin>>n>>k;
+    int i = 1;
+    while(k > (i*(i+1))/2){
+        i++;
     }
-    for(int i = 1; i<=n; i+=2) {
-        for(int j = 1; j<=m; j++) {
-            cout<<m*(i-1)+j<<" ";
-        }
-        cout<<endl;
+    for(int j = 1; j<=n-i; j++) {
+        cout<<-1000<<" ";
     }
+    for(int j = 1; j<i; j++) {
+        cout<<2<<" ";
+    }
+    cout<<(2*k+1-i*(i+1))<<" ";
+    cout<<endl;
+
 }
 
 int32_t main(){

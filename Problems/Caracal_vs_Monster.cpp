@@ -11,24 +11,18 @@ int T = 1;
 
 
 void solve(){
-    int n,m; cin>>n>>m;
-    for(int i = 2; i<=n; i+=2) {
-        for(int j = 1; j<=m; j++) {
-            cout<<m*(i-1)+j<<" ";
-        }
-        cout<<endl;
+    int n; cin>>n;
+    int ans = 0;
+    while(n){
+        ans = ans*2 + 1;
+        n>>=1;
     }
-    for(int i = 1; i<=n; i+=2) {
-        for(int j = 1; j<=m; j++) {
-            cout<<m*(i-1)+j<<" ";
-        }
-        cout<<endl;
-    }
+    cout<<ans<<endl;
 }
 
 int32_t main(){
     fastio;
-    cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }

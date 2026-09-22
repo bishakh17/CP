@@ -14,26 +14,23 @@ void solve(){
     int n; cin>>n;
     vector<int> a(n);
     for(int i = 0; i<n; i++) cin>>a[i];
-    sort(a.begin(), a.end());
-    int count = 0, curr = 0;
-    int ans = 0;
     for(int i = 0; i<n; i++) {
-        if(a[i]==curr){
-            count++;
-            if(count<=2) ans++;
-        }
-        else {
-            curr = a[i];
-            count = 1;
-            ans++;
-        }
+        int x; cin>>x;
+        a[i] -= x;
     }
-    cout(ans/2 + (ans&1));
+    sort(a.begin(), a.end());
+    int r = n - 1;
+    int ans = 0;
+    for(int l = 0; l<n; l++) {
+        while(r>l && a[l]>-a[r]) r--;
+        ans += n - max(r,l) - 1;
+    }
+    cout(ans);
 }
 
 int32_t main(){
     fastio;
-    cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }

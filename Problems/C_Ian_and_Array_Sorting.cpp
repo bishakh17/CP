@@ -11,18 +11,21 @@ int T = 1;
 
 
 void solve(){
-    int n,m; cin>>n>>m;
-    for(int i = 2; i<=n; i+=2) {
-        for(int j = 1; j<=m; j++) {
-            cout<<m*(i-1)+j<<" ";
-        }
-        cout<<endl;
+    int n; cin>>n;
+    vector<int> a(n);
+    for(int i = 0; i<n; i++) cin>>a[i];
+    if(n&1){
+        cout("YES");
+        return;
     }
-    for(int i = 1; i<=n; i+=2) {
-        for(int j = 1; j<=m; j++) {
-            cout<<m*(i-1)+j<<" ";
-        }
-        cout<<endl;
+    for(int i = 1; i<n-1; i++) {
+        a[i+1]+=(a[i-1]-a[i]);
+        a[i] = a[i-1];
+    }
+    if(a[n-1] >= a[n-2]){
+        cout("YES");
+    } else {
+        cout("NO");
     }
 }
 
